@@ -9,7 +9,7 @@ export default function Testimonials() {
     const script = document.createElement('script');
 
     script.src =
-      'https://elfsightcdn.com/platform.js';
+      
 
     script.async = true;
 
@@ -87,8 +87,7 @@ export default function Testimonials() {
         >
 
           <div
-            className="elfsight-app-29a7f1e8-6dee-48a8-a79b-d4b015384bce"
-            data-elfsight-app-lazy
+         
           ></div>
 
         </div>
