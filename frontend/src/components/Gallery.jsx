@@ -6,7 +6,7 @@ export default function Gallery() {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    get('/api/gallery.php')
+    get('/gallery.php')
       .then((res) => setItems(res))
       .catch(() => setItems([]));
   }, []);
