@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { get, put } from '../../api';
 
 export default function AboutManager() {
 
@@ -33,9 +33,7 @@ export default function AboutManager() {
 
     try {
 
-      const res = await axios.get(
-        'http://localhost/backend/api/about.php'
-      );
+      const res = await get('/about');
 
       setForm(res.data);
 
@@ -60,10 +58,7 @@ export default function AboutManager() {
 
     try {
 
-      await axios.put(
-        'http://localhost/backend/api/about.php',
-        form
-      );
+      await put('/about', form, true);
 
       setMessage('Updated Successfully');
 

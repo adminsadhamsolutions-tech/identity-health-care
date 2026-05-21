@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './About.css';
+import { get } from '../api';
 
 export default function About() {
 
@@ -15,15 +16,9 @@ export default function About() {
 
     try {
 
-      const response = await fetch(
-        'http://localhost/identitiyhos/backend/api/about.php'
-      );
+      const response = await get('/about');
 
-      const data = await response.json();
-
-      console.log(data);
-
-      setAbout(data);
+      setAbout(response.data);
 
     } catch (error) {
 

@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react';
+import { get, post, put, del } from '../../api';
+
 function HeroManager() {
 
   const emptyForm = {
@@ -29,13 +32,9 @@ function HeroManager() {
 
     try {
 
-      const response = await fetch(
-        'http://localhost/identitiyhos/backend/api/hero.php'
-      );
+      const response = await get('/hero');
 
-      const data = await response.json();
-
-      setSlides(data);
+      setSlides(response.data);
 
     } catch(error) {
 
@@ -65,18 +64,11 @@ function HeroManager() {
 
     try {
 
-      const method = form.id ? 'PUT' : 'POST';
-
-      await fetch(
-        'http://localhost/identitiyhos/backend/api/hero.php',
-        {
-          method,
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(form)
-        }
-      );
+      if (form.id) {
+        await put('/hero', form, true);
+      } else {
+        await post('/hero', form, true);
+      }
 
       setMessage(
         form.id
@@ -123,12 +115,7 @@ function HeroManager() {
 
     try {
 
-      await fetch(
-        `http://localhost/identitiyhos/backend/api/hero.php?id=${id}`,
-        {
-          method: 'DELETE'
-        }
-      );
+      await del(`/hero/${id}`, true);
 
       loadSlides();
 
@@ -321,3 +308,5 @@ function HeroManager() {
   );
 
 }
+
+export default HeroManager;

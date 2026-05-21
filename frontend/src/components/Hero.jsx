@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './Hero.css';
+import { get } from '../api';
 
 export default function Hero() {
 
@@ -15,13 +16,17 @@ export default function Hero() {
 
   const loadSlides = async () => {
 
-    const response = await fetch(
-      'http://localhost/identitiyhos/backend/api/hero.php'
-    );
+    try {
 
-    const data = await response.json();
+      const response = await get('/hero');
 
-    setSlides(data);
+      setSlides(response.data);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
 
   };
 
