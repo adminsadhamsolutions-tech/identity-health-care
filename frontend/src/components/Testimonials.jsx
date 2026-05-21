@@ -4,13 +4,15 @@ export default function Testimonials() {
 
   useEffect(() => {
 
-    // LOAD ELFSIGHT SCRIPT
+    // Prevent duplicate script loading
+    const existing = document.querySelector(
+      "script[src*='elfsight']"
+    );
+    if (existing) return;
 
     const script = document.createElement('script');
 
-    script.src =
-      
-
+    script.src = "https://static.elfsight.com/platform/platform.js";
     script.async = true;
 
     document.body.appendChild(script);
@@ -18,16 +20,13 @@ export default function Testimonials() {
   }, []);
 
   return (
-
     <section
       id="testimonials"
       style={{
         padding: '100px 20px',
-        background:
-          'linear-gradient(to bottom right, #faf5ff, #ffffff)',
+        background: 'linear-gradient(to bottom right, #faf5ff, #ffffff)',
       }}
     >
-
       <div
         style={{
           maxWidth: '1300px',
@@ -37,7 +36,6 @@ export default function Testimonials() {
       >
 
         {/* TOP TEXT */}
-
         <p
           style={{
             color: '#6a1b9a',
@@ -71,31 +69,16 @@ export default function Testimonials() {
           }}
         >
           Real stories and authentic experiences shared directly
-          from our Google Business Profile by women who trusted
-          Identity Health Care for recovery, wellness, and fitness.
+          from Google reviews.
         </p>
 
-        {/* GOOGLE REVIEWS WIDGET */}
-
+        {/* ELFSIGHT WIDGET */}
         <div
-          style={{
-            background: '#fff',
-            borderRadius: '35px',
-            padding: '30px',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.08)',
-          }}
-        >
-
-          <div
-         
-          ></div>
-
-        </div>
+          className="elfsight-app"
+          data-elfsight-app-lazy
+        ></div>
 
       </div>
-
     </section>
-
   );
-
 }

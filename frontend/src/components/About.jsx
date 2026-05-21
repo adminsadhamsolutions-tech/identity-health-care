@@ -7,45 +7,38 @@ export default function About() {
   const [about, setAbout] = useState(null);
 
   useEffect(() => {
-
     loadAbout();
-
   }, []);
 
   const loadAbout = async () => {
-
     try {
-
       const response = await get('/about.php');
 
-      setAbout(response.data);
+      const data = Array.isArray(response.data)
+        ? response.data[0]
+        : response.data;
+
+      setAbout(data);
 
     } catch (error) {
-
       console.log(error);
-
     }
-
   };
 
   if (!about) {
-
     return (
       <div className="about-loading">
         Loading About Section...
       </div>
     );
-
   }
 
   return (
-
     <section id="about" className="about-section">
 
       <div className="about-container">
 
         {/* LEFT IMAGE */}
-
         <div className="about-image-area">
 
           <img
@@ -55,17 +48,13 @@ export default function About() {
           />
 
           <div className="experience-badge">
-
             <h2>10+</h2>
-
             <p>Years</p>
-
           </div>
 
         </div>
 
         {/* RIGHT CONTENT */}
-
         <div className="about-content">
 
           <p className="about-badge">
@@ -80,46 +69,19 @@ export default function About() {
             {about.subtitle}
           </p>
 
-          {/* CARD 1 */}
-
           <div className="about-card">
-
-            <h3>
-              {about.card1_title}
-            </h3>
-
-            <p>
-              {about.card1_desc}
-            </p>
-
+            <h3>{about.card1_title}</h3>
+            <p>{about.card1_desc}</p>
           </div>
 
-          {/* CARD 2 */}
-
           <div className="about-card">
-
-            <h3>
-              {about.card2_title}
-            </h3>
-
-            <p>
-              {about.card2_desc}
-            </p>
-
+            <h3>{about.card2_title}</h3>
+            <p>{about.card2_desc}</p>
           </div>
 
-          {/* CARD 3 */}
-
           <div className="about-card">
-
-            <h3>
-              {about.card3_title}
-            </h3>
-
-            <p>
-              {about.card3_desc}
-            </p>
-
+            <h3>{about.card3_title}</h3>
+            <p>{about.card3_desc}</p>
           </div>
 
         </div>
@@ -127,7 +89,5 @@ export default function About() {
       </div>
 
     </section>
-
   );
-
 }
