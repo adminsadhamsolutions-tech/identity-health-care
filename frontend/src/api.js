@@ -28,4 +28,4 @@ export const del = (path, auth = false) =>
   client.delete(path, auth ? { headers: authHeaders() } : {});
 
 export const login = (credentials) =>
-  client.post('/login.php', credentials);
+  client.post('/api/login.php', credentials);

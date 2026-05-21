@@ -8,7 +8,7 @@ export default function BlogPreview() {
   const [blogs, setBlogs] = useState([]);
 
 useEffect(() => {
- get('/blogs.php')
+ get('/api/blogs.php')
     .then((res) => setBlogs(res))
     .catch(() => setBlogs([]));
 }, []);
