@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = "https://server.identityphysiocare.in";
+const baseURL = "https://server.identityphysiocare.in/api";
 
 const client = axios.create({
   baseURL,
@@ -28,4 +28,4 @@ export const del = (path, auth = false) =>
   client.delete(path, auth ? { headers: authHeaders() } : {});
 
 export const login = (credentials) =>
-  client.post('/api/login.php', credentials);
+  client.post('/login.php', credentials);
