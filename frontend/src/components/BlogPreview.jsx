@@ -6,14 +6,20 @@ import { get } from '../api';
 export default function BlogPreview() {
 
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
- get('/blogs.php')
-    .then((res) => setBlogs(res))
-    .catch(() => setBlogs([]));
-}, []);
+  useEffect(() => {
+    setLoading(true);
 
-  // WHATSAPP SHARE
+    get('/blogs.php')
+      .then((res) => {
+        const data = Array.isArray(res.data) ? res.data : [];
+        setBlogs(data);
+      })
+      .catch(() => setBlogs([]))
+      .finally(() => setLoading(false));
+
+  }, []);
 
   const shareWhatsApp = (blog) => {
 
@@ -21,42 +27,26 @@ useEffect(() => {
       `https://www.identityphysiocare.in/blogs/${blog.id}`;
 
     const text = `
-
 ${blog.title}
 
 ${blog.description}
 
 Read More:
 ${websiteUrl}
-
 `;
 
     const whatsappUrl =
       `https://wa.me/?text=${encodeURIComponent(text)}`;
 
-    window.open(
-      whatsappUrl,
-      '_blank'
-    );
-
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
-
-    <section
-      className="section section-soft"
-      id="blog"
-    >
+    <section className="section section-soft" id="blog">
 
       <div className="container text-center">
 
-        <p
-          style={{
-            color: '#6a1b9a',
-            fontWeight: 700,
-            marginBottom: '14px'
-          }}
-        >
+        <p style={{ color: '#6a1b9a', fontWeight: 700, marginBottom: '14px' }}>
           Knowledge hub
         </p>
 
@@ -70,82 +60,72 @@ ${websiteUrl}
           every phase of your health journey.
         </p>
 
+        {/* LOADING STATE */}
+        {loading && <p>Loading blogs...</p>}
+
         <div className="grid blog-grid">
 
-          {Array.isArray(blogs) && blogs.map((blog) => (
+          {blogs.length === 0 && !loading ? (
+            <p>No blogs found</p>
+          ) : (
+            blogs.map((blog) => (
+              <article key={blog.id} className="blog-card">
 
-            <article
-              key={blog.id}
-              className="blog-card"
-            >
+                <img
+                  src={blog.media_url}
+                  alt={blog.title}
+                />
 
-              <img
-                src={blog.media_url}
-                alt={blog.title}
-              />
+                <h3>{blog.title}</h3>
 
-              <h3>
-                {blog.title}
-              </h3>
+                <p>{blog.description}</p>
 
-              <p>
-                {blog.description}
-              </p>
-
-              {/* BUTTONS */}
-
-              <div
-                style={{
-                  display: 'flex',
-                  gap: '12px',
-                  justifyContent: 'center',
-                  marginTop: '20px',
-                  flexWrap: 'wrap'
-                }}
-              >
-
-                <Link
-                  to={`/blogs/${blog.id}`}
-                  className="button-secondary"
-                >
-                  Read More
-                </Link>
-
-                {/* WHATSAPP */}
-
-                <button
-                  onClick={() => shareWhatsApp(blog)}
+                <div
                   style={{
-                    width: '50px',
-                    height: '50px',
-                    borderRadius: '50%',
-                    border: 'none',
-                    background: '#25D366',
-                    color: '#fff',
-                    fontSize: '24px',
-                    cursor: 'pointer',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
+                    gap: '12px',
+                    justifyContent: 'center',
+                    marginTop: '20px',
+                    flexWrap: 'wrap'
                   }}
                 >
 
-                  <FaWhatsapp />
+                  <Link
+                    to={`/blogs/${blog.id}`}
+                    className="button-secondary"
+                  >
+                    Read More
+                  </Link>
 
-                </button>
+                  <button
+                    onClick={() => shareWhatsApp(blog)}
+                    style={{
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '50%',
+                      border: 'none',
+                      background: '#25D366',
+                      color: '#fff',
+                      fontSize: '24px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <FaWhatsapp />
+                  </button>
 
-              </div>
+                </div>
 
-            </article>
-
-          ))}
+              </article>
+            ))
+          )}
 
         </div>
 
       </div>
 
     </section>
-
   );
-
 }
