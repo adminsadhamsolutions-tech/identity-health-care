@@ -57,12 +57,12 @@ Token is obtained from login endpoint and stored in localStorage.
 Base URL configuration in `frontend/src/api.js`:
 
 ```javascript
-const baseURL = process.env.REACT_APP_API_URL || 'https://identityphysiocare.in/backend/api';
+const baseURL = process.env.REACT_APP_API_URL || 'https://www.identityphysiocare.in/backend/api';
 ```
 
 All API calls automatically append `.php` extension to endpoint names:
-- `get('/about.php')` → `https://identityphysiocare.in/backend/api/about.php`
-- `post('/hero.php', data, true)` → `https://identityphysiocare.in/backend/api/hero.php`
+- `get('/about.php')` → `https://www.identityphysiocare.in/backend/api/about.php`
+- `post('/hero.php', data, true)` → `https://www.identityphysiocare.in/backend/api/hero.php`
 
 ## Deployment Notes
 
@@ -77,7 +77,7 @@ All API calls automatically append `.php` extension to endpoint names:
 
 1. Environment variable must be set:
    ```
-   REACT_APP_API_URL=https://identityphysiocare.in/backend/api
+   REACT_APP_API_URL=https://www.identityphysiocare.in/backend/api
    ```
 
 2. Build and deploy:
@@ -114,7 +114,7 @@ All endpoints return JSON with proper HTTP status codes:
 
 ### Issue: API calls fail on mobile
 **Cause**: Using localhost instead of production domain
-**Solution**: All endpoints use production domain `https://identityphysiocare.in`
+**Solution**: All endpoints use production domain `https://www.identityphysiocare.in`
 
 ## Testing Endpoints
 
@@ -122,15 +122,15 @@ Use curl or Postman to test:
 
 ```bash
 # Get about section
-curl https://identityphysiocare.in/backend/api/about.php
+curl https://www.identityphysiocare.in/backend/api/about.php
 
 # Login
-curl -X POST https://identityphysiocare.in/backend/api/login.php \
+curl -X POST https://www.identityphysiocare.in/backend/api/login.php \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"Admin@123"}'
 
 # Create blog (with token)
-curl -X POST https://identityphysiocare.in/backend/api/blogs.php \
+curl -X POST https://www.identityphysiocare.in/backend/api/blogs.php \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <token>" \
   -d '{"title":"...","description":"...","content":"...","media_url":"..."}'

@@ -161,25 +161,3 @@ try {
     sendJson(['error' => 'Server error'], 500);
 }
 
-    ;
-
-    echo json_encode([
-        'success' => true
-    ]);
-
-
-
-if ($method === 'DELETE') {
-
-    $stmt = $pdo->prepare("
-        DELETE FROM hero_slides
-        WHERE id = ?
-    ");
-
-    $stmt->execute([$id]);
-
-    echo json_encode([
-        'success' => true
-    ]);
-
-}

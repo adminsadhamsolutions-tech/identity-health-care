@@ -20,7 +20,7 @@ export default function BlogPreview() {
   const shareWhatsApp = (blog) => {
 
     const websiteUrl =
-      `https://identityphysiocare.in/blogs/${blog.id}`;
+      `https://www.identityphysiocare.in/blogs/${blog.id}`;
 
     const text = `
 

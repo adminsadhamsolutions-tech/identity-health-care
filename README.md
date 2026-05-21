@@ -23,7 +23,7 @@ A modern full-stack healthcare website for a women-focused wellness studio.
    ```bash
    npm start
    ```
-5. Open the site at `https://identityphysiocare.in`
+5. Open the site at `https://www.identityphysiocare.in`
 
 ## Backend setup
 
@@ -45,7 +45,7 @@ A modern full-stack healthcare website for a women-focused wellness studio.
 
 To log in, visit:
 
-- `https://identityphysiocare.in/admin/login`
+- `https://www.identityphysiocare.in/admin/login`
 
 ## API endpoints
 

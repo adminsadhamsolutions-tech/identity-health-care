@@ -52,7 +52,7 @@
 - This doesn't match any real file or route
 
 **Solution**:
-- Changed baseURL from `https://identityphysiocare.in/backend/api.php` to `https://identityphysiocare.in/backend/api`
+- Changed baseURL from `https://www.identityphysiocare.in/backend/api.php` to `https://www.identityphysiocare.in/backend/api`
 - All endpoints now reference individual files: `/about.php`, `/hero.php`, etc.
 - Frontend API module always appends `.php` to path parameters
 
@@ -167,14 +167,14 @@ POST /backend/api/blogs.php     ✅ (works)
 
 ### Before
 ```javascript
-const baseURL = 'https://identityphysiocare.in/backend/api.php';
+const baseURL = 'https://www.identityphysiocare.in/backend/api.php';
 export const get = (path) => client.get(path);
 // Calls: get('/about') → GET /backend/api.php/about ❌
 ```
 
 ### After
 ```javascript
-const baseURL = 'https://identityphysiocare.in/backend/api';
+const baseURL = 'https://www.identityphysiocare.in/backend/api';
 export const get = (path, auth = false) => client.get(path);
 // Calls: get('/about.php') → GET /backend/api/about.php ✅
 ```
@@ -231,7 +231,7 @@ All endpoints now return consistent JSON responses:
 
 ### Production (Hostinger)
 ```env
-REACT_APP_API_URL=https://identityphysiocare.in/backend/api
+REACT_APP_API_URL=https://www.identityphysiocare.in/backend/api
 ```
 
 ### Local Development
@@ -277,7 +277,7 @@ npm run build
 
 ### 4. Set Frontend Environment Variables on Vercel
 ```
-REACT_APP_API_URL=https://identityphysiocare.in/backend/api
+REACT_APP_API_URL=https://www.identityphysiocare.in/backend/api
 ```
 
 ### 5. Test All Endpoints
