@@ -5,11 +5,13 @@ export default function Gallery() {
   const [items, setItems] = useState([]);
   const [selected, setSelected] = useState(null);
 
-  useEffect(() => {
-    get('/gallery.php')
-      .then((res) => setItems(res))
-      .catch(() => setItems([]));
-  }, []);
+useEffect(() => {
+  get('/gallery.php')
+    .then((res) => {
+      setItems(Array.isArray(res.data) ? res.data : []);
+    })
+    .catch(() => setItems([]));
+}, []);
 
   return (
     <section className="section" id="gallery">
