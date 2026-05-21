@@ -6,11 +6,20 @@ export default function BlogDetail() {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    get(`/blogs/${id}`)
-      .then((res) => setBlog(res))
-      .catch(() => setError('Blog not found.'));
+    setLoading(true);
+
+    get(`/blogs.php?id=${id}`)
+      .then((res) => {
+        // API returns array when single blog
+        const data = Array.isArray(res) ? res[0] : res;
+        setBlog(data);
+      })
+      .catch(() => setError('Blog not found.'))
+      .finally(() => setLoading(false));
+
   }, [id]);
 
   if (error) {
@@ -19,7 +28,7 @@ export default function BlogDetail() {
         <div className="container text-center">
           <h2 className="section-title">Article unavailable</h2>
           <p className="section-subtitle">
-            Sorry, we could not locate the blog post you requested.
+            Blog not found or API error.
           </p>
           <Link to="/" className="cta-button">
             Back Home
@@ -29,7 +38,7 @@ export default function BlogDetail() {
     );
   }
 
-  if (!blog) {
+  if (loading) {
     return (
       <section className="section">
         <div className="container text-center">
@@ -38,6 +47,8 @@ export default function BlogDetail() {
       </section>
     );
   }
+
+  if (!blog) return null;
 
   const safeContent = blog.content || "";
 
