@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Use environment variable or production domain without the /api.php suffix
-const baseURL = "https://server.identityphysiocare.in/api";
+const baseURL = "https://server.identityphysiocare.in/api.php";
 
 const client = axios.create({
   baseURL,
