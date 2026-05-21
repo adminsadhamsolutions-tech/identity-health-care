@@ -42,7 +42,7 @@ try {
                 sendJson(['error' => 'Blog not found'], 404);
             }
             
-            sendJson($data);
+            sendJson([$data]);
         }
         
         $stmt = $pdo->prepare("SELECT * FROM blogs ORDER BY id DESC");

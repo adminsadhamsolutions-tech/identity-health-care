@@ -42,7 +42,7 @@ try {
                 sendJson(['error' => 'Slide not found'], 404);
             }
             
-            sendJson($data);
+            sendJson([$data]);
         }
         
         $stmt = $pdo->prepare("SELECT * FROM hero_slides ORDER BY id DESC");

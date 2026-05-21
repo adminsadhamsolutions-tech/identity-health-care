@@ -42,7 +42,7 @@ try {
                 sendJson(['error' => 'Testimonial not found'], 404);
             }
             
-            sendJson($data);
+            sendJson([$data]);
         }
         
         $stmt = $pdo->prepare("SELECT * FROM testimonials ORDER BY id DESC");
@@ -150,3 +150,5 @@ try {
     error_log('Testimonials API Error: ' . $e->getMessage());
     sendJson(['error' => 'Server error'], 500);
 }
+
+

@@ -38,7 +38,7 @@ try {
             sendJson(['error' => 'Not found'], 404);
         }
 
-        sendJson($data);
+        sendJson([$data]);
     }
 
     // PUT
