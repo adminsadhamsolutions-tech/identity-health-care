@@ -32,7 +32,7 @@ function HeroManager() {
 
     try {
 
-      const response = await get('/hero');
+      const response = await get('/hero.php');
 
       setSlides(response.data);
 
@@ -65,9 +65,9 @@ function HeroManager() {
     try {
 
       if (form.id) {
-        await put('/hero', form, true);
+        await put('/hero.php', form, true);
       } else {
-        await post('/hero', form, true);
+        await post('/hero.php', form, true);
       }
 
       setMessage(
@@ -115,7 +115,7 @@ function HeroManager() {
 
     try {
 
-      await del(`/hero/${id}`, true);
+      await del(`/hero.php?id=${id}`, true);
 
       loadSlides();
 

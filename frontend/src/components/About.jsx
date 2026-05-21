@@ -16,7 +16,7 @@ export default function About() {
 
     try {
 
-      const response = await get('/about');
+      const response = await get('/about.php');
 
       setAbout(response.data);
 

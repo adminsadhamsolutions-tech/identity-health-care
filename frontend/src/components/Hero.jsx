@@ -18,7 +18,7 @@ export default function Hero() {
 
     try {
 
-      const response = await get('/hero');
+      const response = await get('/hero.php');
 
       setSlides(response.data);
 

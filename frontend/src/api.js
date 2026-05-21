@@ -1,11 +1,14 @@
 import axios from 'axios';
 
-const baseURL = process.env.REACT_APP_API_URL || 'https://identityphysiocare.in/backend/api.php';
+// Use environment variable or production domain without the /api.php suffix
+const baseURL = process.env.REACT_APP_API_URL || 'https://identityphysiocare.in/backend/api';
+
 const client = axios.create({
   baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: false, // Ensure CORS works properly
 });
 
 const authHeaders = () => {
@@ -26,4 +29,5 @@ export const del = (path, auth = false) =>
   client.delete(path, auth ? { headers: authHeaders() } : {});
 
 export const login = (credentials) =>
-  client.post('/login', credentials);
+  client.post('/login.php', credentials);
+

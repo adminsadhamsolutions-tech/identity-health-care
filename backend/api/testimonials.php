@@ -31,26 +31,26 @@ function getRequestBody() {
 try {
     $pdo = getPDO();
 
-    // GET all hero slides or by ID
+    // GET all testimonials or by ID
     if ($method === 'GET') {
         if ($id) {
-            $stmt = $pdo->prepare("SELECT * FROM hero_slides WHERE id = ? LIMIT 1");
+            $stmt = $pdo->prepare("SELECT * FROM testimonials WHERE id = ? LIMIT 1");
             $stmt->execute([$id]);
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             
             if (!$data) {
-                sendJson(['error' => 'Slide not found'], 404);
+                sendJson(['error' => 'Testimonial not found'], 404);
             }
             
             sendJson($data);
         }
         
-        $stmt = $pdo->prepare("SELECT * FROM hero_slides ORDER BY id DESC");
+        $stmt = $pdo->prepare("SELECT * FROM testimonials ORDER BY id DESC");
         $stmt->execute();
         sendJson($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    // CREATE new hero slide
+    // CREATE new testimonial (requires auth)
     if ($method === 'POST') {
         $headers = getallheaders();
         $auth = isset($headers['Authorization']) ? $headers['Authorization'] : '';
@@ -65,29 +65,25 @@ try {
             sendJson(['error' => 'Request body is empty'], 400);
         }
 
-        if (empty($data['badge_text']) || empty($data['title']) || empty($data['background_image'])) {
-            sendJson(['error' => 'Missing required fields'], 422);
+        if (empty($data['name']) || empty($data['message']) || empty($data['rating'])) {
+            sendJson(['error' => 'Missing required fields: name, message, rating'], 422);
         }
 
         $stmt = $pdo->prepare("
-            INSERT INTO hero_slides 
-            (badge_text, title, subtitle, background_image, button1_text, button2_text) 
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO testimonials (name, message, rating) 
+            VALUES (?, ?, ?)
         ");
 
         $stmt->execute([
-            $data['badge_text'],
-            $data['title'],
-            $data['subtitle'] ?? '',
-            $data['background_image'],
-            $data['button1_text'] ?? '',
-            $data['button2_text'] ?? ''
+            $data['name'],
+            $data['message'],
+            $data['rating']
         ]);
 
-        sendJson(['success' => true, 'message' => 'Slide created', 'id' => $pdo->lastInsertId()], 201);
+        sendJson(['success' => true, 'message' => 'Testimonial added', 'id' => $pdo->lastInsertId()], 201);
     }
 
-    // UPDATE hero slide
+    // UPDATE testimonial (requires auth)
     if ($method === 'PUT') {
         $headers = getallheaders();
         $auth = isset($headers['Authorization']) ? $headers['Authorization'] : '';
@@ -103,34 +99,28 @@ try {
         }
 
         if (empty($data['id'])) {
-            sendJson(['error' => 'Slide ID is required'], 422);
+            sendJson(['error' => 'Testimonial ID is required'], 422);
         }
 
         $stmt = $pdo->prepare("
-            UPDATE hero_slides SET
-                badge_text = ?,
-                title = ?,
-                subtitle = ?,
-                background_image = ?,
-                button1_text = ?,
-                button2_text = ?
+            UPDATE testimonials SET 
+                name = ?, 
+                message = ?, 
+                rating = ? 
             WHERE id = ?
         ");
 
         $stmt->execute([
-            $data['badge_text'],
-            $data['title'],
-            $data['subtitle'] ?? '',
-            $data['background_image'],
-            $data['button1_text'] ?? '',
-            $data['button2_text'] ?? '',
+            $data['name'],
+            $data['message'],
+            $data['rating'],
             $data['id']
         ]);
 
-        sendJson(['success' => true, 'message' => 'Slide updated'], 200);
+        sendJson(['success' => true, 'message' => 'Testimonial updated'], 200);
     }
 
-    // DELETE hero slide
+    // DELETE testimonial (requires auth)
     if ($method === 'DELETE') {
         $headers = getallheaders();
         $auth = isset($headers['Authorization']) ? $headers['Authorization'] : '';
@@ -140,46 +130,23 @@ try {
         }
 
         if (!$id) {
-            sendJson(['error' => 'Slide ID is required'], 422);
+            sendJson(['error' => 'Testimonial ID is required'], 422);
         }
 
-        $stmt = $pdo->prepare("DELETE FROM hero_slides WHERE id = ?");
+        $stmt = $pdo->prepare("DELETE FROM testimonials WHERE id = ?");
         $stmt->execute([$id]);
 
         if ($stmt->rowCount() === 0) {
-            sendJson(['error' => 'Slide not found'], 404);
+            sendJson(['error' => 'Testimonial not found'], 404);
         }
 
-        sendJson(['success' => true, 'message' => 'Slide deleted'], 200);
+        sendJson(['success' => true, 'message' => 'Testimonial deleted'], 200);
     }
 
     // Method not allowed
     sendJson(['error' => 'Method not allowed'], 405);
 
 } catch (Exception $e) {
-    error_log('Hero API Error: ' . $e->getMessage());
+    error_log('Testimonials API Error: ' . $e->getMessage());
     sendJson(['error' => 'Server error'], 500);
-}
-
-    ;
-
-    echo json_encode([
-        'success' => true
-    ]);
-
-
-
-if ($method === 'DELETE') {
-
-    $stmt = $pdo->prepare("
-        DELETE FROM hero_slides
-        WHERE id = ?
-    ");
-
-    $stmt->execute([$id]);
-
-    echo json_encode([
-        'success' => true
-    ]);
-
 }

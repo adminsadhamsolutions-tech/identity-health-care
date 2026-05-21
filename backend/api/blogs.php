@@ -31,26 +31,26 @@ function getRequestBody() {
 try {
     $pdo = getPDO();
 
-    // GET all hero slides or by ID
+    // GET all blogs or by ID
     if ($method === 'GET') {
         if ($id) {
-            $stmt = $pdo->prepare("SELECT * FROM hero_slides WHERE id = ? LIMIT 1");
+            $stmt = $pdo->prepare("SELECT * FROM blogs WHERE id = ? LIMIT 1");
             $stmt->execute([$id]);
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             
             if (!$data) {
-                sendJson(['error' => 'Slide not found'], 404);
+                sendJson(['error' => 'Blog not found'], 404);
             }
             
             sendJson($data);
         }
         
-        $stmt = $pdo->prepare("SELECT * FROM hero_slides ORDER BY id DESC");
+        $stmt = $pdo->prepare("SELECT * FROM blogs ORDER BY id DESC");
         $stmt->execute();
         sendJson($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    // CREATE new hero slide
+    // CREATE new blog (requires auth)
     if ($method === 'POST') {
         $headers = getallheaders();
         $auth = isset($headers['Authorization']) ? $headers['Authorization'] : '';
@@ -65,29 +65,26 @@ try {
             sendJson(['error' => 'Request body is empty'], 400);
         }
 
-        if (empty($data['badge_text']) || empty($data['title']) || empty($data['background_image'])) {
-            sendJson(['error' => 'Missing required fields'], 422);
+        if (empty($data['title']) || empty($data['description']) || empty($data['content'])) {
+            sendJson(['error' => 'Missing required fields: title, description, content'], 422);
         }
 
         $stmt = $pdo->prepare("
-            INSERT INTO hero_slides 
-            (badge_text, title, subtitle, background_image, button1_text, button2_text) 
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO blogs (title, description, content, media_url, created_at) 
+            VALUES (?, ?, ?, ?, NOW())
         ");
 
         $stmt->execute([
-            $data['badge_text'],
             $data['title'],
-            $data['subtitle'] ?? '',
-            $data['background_image'],
-            $data['button1_text'] ?? '',
-            $data['button2_text'] ?? ''
+            $data['description'],
+            $data['content'],
+            $data['media_url'] ?? ''
         ]);
 
-        sendJson(['success' => true, 'message' => 'Slide created', 'id' => $pdo->lastInsertId()], 201);
+        sendJson(['success' => true, 'message' => 'Blog created', 'id' => $pdo->lastInsertId()], 201);
     }
 
-    // UPDATE hero slide
+    // UPDATE blog (requires auth)
     if ($method === 'PUT') {
         $headers = getallheaders();
         $auth = isset($headers['Authorization']) ? $headers['Authorization'] : '';
@@ -103,34 +100,30 @@ try {
         }
 
         if (empty($data['id'])) {
-            sendJson(['error' => 'Slide ID is required'], 422);
+            sendJson(['error' => 'Blog ID is required'], 422);
         }
 
         $stmt = $pdo->prepare("
-            UPDATE hero_slides SET
-                badge_text = ?,
-                title = ?,
-                subtitle = ?,
-                background_image = ?,
-                button1_text = ?,
-                button2_text = ?
+            UPDATE blogs SET 
+                title = ?, 
+                description = ?, 
+                content = ?, 
+                media_url = ? 
             WHERE id = ?
         ");
 
         $stmt->execute([
-            $data['badge_text'],
             $data['title'],
-            $data['subtitle'] ?? '',
-            $data['background_image'],
-            $data['button1_text'] ?? '',
-            $data['button2_text'] ?? '',
+            $data['description'],
+            $data['content'],
+            $data['media_url'] ?? '',
             $data['id']
         ]);
 
-        sendJson(['success' => true, 'message' => 'Slide updated'], 200);
+        sendJson(['success' => true, 'message' => 'Blog updated'], 200);
     }
 
-    // DELETE hero slide
+    // DELETE blog (requires auth)
     if ($method === 'DELETE') {
         $headers = getallheaders();
         $auth = isset($headers['Authorization']) ? $headers['Authorization'] : '';
@@ -140,46 +133,23 @@ try {
         }
 
         if (!$id) {
-            sendJson(['error' => 'Slide ID is required'], 422);
+            sendJson(['error' => 'Blog ID is required'], 422);
         }
 
-        $stmt = $pdo->prepare("DELETE FROM hero_slides WHERE id = ?");
+        $stmt = $pdo->prepare("DELETE FROM blogs WHERE id = ?");
         $stmt->execute([$id]);
 
         if ($stmt->rowCount() === 0) {
-            sendJson(['error' => 'Slide not found'], 404);
+            sendJson(['error' => 'Blog not found'], 404);
         }
 
-        sendJson(['success' => true, 'message' => 'Slide deleted'], 200);
+        sendJson(['success' => true, 'message' => 'Blog deleted'], 200);
     }
 
     // Method not allowed
     sendJson(['error' => 'Method not allowed'], 405);
 
 } catch (Exception $e) {
-    error_log('Hero API Error: ' . $e->getMessage());
+    error_log('Blogs API Error: ' . $e->getMessage());
     sendJson(['error' => 'Server error'], 500);
-}
-
-    ;
-
-    echo json_encode([
-        'success' => true
-    ]);
-
-
-
-if ($method === 'DELETE') {
-
-    $stmt = $pdo->prepare("
-        DELETE FROM hero_slides
-        WHERE id = ?
-    ");
-
-    $stmt->execute([$id]);
-
-    echo json_encode([
-        'success' => true
-    ]);
-
 }

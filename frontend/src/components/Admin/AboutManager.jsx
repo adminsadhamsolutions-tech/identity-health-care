@@ -33,7 +33,7 @@ export default function AboutManager() {
 
     try {
 
-      const res = await get('/about');
+      const res = await get('/about.php');
 
       setForm(res.data);
 
@@ -58,7 +58,7 @@ export default function AboutManager() {
 
     try {
 
-      await put('/about', form, true);
+      await put('/about.php', form, true);
 
       setMessage('Updated Successfully');
 

@@ -30,10 +30,10 @@ export default function AdminDashboard() {
   const refreshCounts = async () => {
     try {
       const [blogs, gallery, testimonials, appointments] = await Promise.all([
-        get('/blogs'),
-        get('/gallery'),
-        get('/testimonials'),
-        get('/appointments', true),
+        get('/blogs.php'),
+        get('/gallery.php'),
+        get('/testimonials.php'),
+        get('/appointments.php', true),
       ]);
       setOverview({
         blogs: blogs.data.length,
@@ -148,7 +148,7 @@ function BlogManager({ token, onUpdate }) {
   }, []);
 
   const loadBlogs = () => {
-    get('/blogs')
+    get('/blogs.php')
       .then((res) => setBlogs(res.data))
       .catch(() => setBlogs([]));
   };
@@ -174,10 +174,10 @@ function BlogManager({ token, onUpdate }) {
 
     try {
       if (editId) {
-        await put(`/blogs/${editId}`, form, true);
+        await put(`/blogs.php?id=${editId}`, form, true);
         setStatus({ type: 'success', message: 'Blog updated successfully.' });
       } else {
-        await post('/blogs', form, true);
+        await post('/blogs.php', form, true);
         setStatus({ type: 'success', message: 'Blog added successfully.' });
       }
       loadBlogs();
@@ -197,7 +197,7 @@ function BlogManager({ token, onUpdate }) {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this blog?')) return;
     try {
-      await del(`/blogs/${id}`, true);
+      await del(`/blogs.php?id=${id}`, true);
       loadBlogs();
       onUpdate?.();
     } catch (error) {
@@ -264,7 +264,7 @@ function GalleryManager({ token, onUpdate }) {
   }, []);
 
   const loadGallery = () => {
-    get('/gallery')
+    get('/gallery.php')
       .then((res) => setItems(res.data))
       .catch(() => setItems([]));
   };
@@ -283,7 +283,7 @@ function GalleryManager({ token, onUpdate }) {
     }
 
     try {
-      await post('/gallery', form, true);
+      await post('/gallery.php', form, true);
       setStatus({ type: 'success', message: 'Media uploaded.' });
       setForm({ media_url: '', type: 'image' });
       loadGallery();
@@ -295,7 +295,7 @@ function GalleryManager({ token, onUpdate }) {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this media item?')) return;
-    await del(`/gallery/${id}`, true);
+    await del(`/gallery.php?id=${id}`, true);
     loadGallery();
     onUpdate?.();
   };
@@ -346,7 +346,7 @@ function TestimonialManager({ token, onUpdate }) {
   }, []);
 
   const loadTestimonials = () => {
-    get('/testimonials')
+    get('/testimonials.php')
       .then((res) => setTestimonials(res.data))
       .catch(() => setTestimonials([]));
   };
@@ -364,7 +364,7 @@ function TestimonialManager({ token, onUpdate }) {
       return;
     }
     try {
-      await post('/testimonials', form, true);
+      await post('/testimonials.php', form, true);
       setStatus({ type: 'success', message: 'Testimonial added.' });
       setForm({ name: '', message: '', rating: 5 });
       loadTestimonials();
@@ -376,7 +376,7 @@ function TestimonialManager({ token, onUpdate }) {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this testimonial?')) return;
-    await del(`/testimonials/${id}`, true);
+    await del(`/testimonials.php?id=${id}`, true);
     loadTestimonials();
     onUpdate?.();
   };
@@ -427,7 +427,7 @@ function AppointmentList({ token }) {
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    get('/appointments', true)
+    get('/appointments.php', true)
       .then((res) => setAppointments(res.data))
       .catch(() => setAppointments([]));
   }, []);
@@ -487,7 +487,7 @@ function AboutManager() {
 
     try {
 
-      const res = await get('/about');
+      const res = await get('/about.php');
 
       setForm(res.data);
 
@@ -512,7 +512,7 @@ function AboutManager() {
 
     try {
 
-      await put('/about', form, true);
+      await put('/about.php', form, true);
 
       setMessage('About Section Updated');
 
