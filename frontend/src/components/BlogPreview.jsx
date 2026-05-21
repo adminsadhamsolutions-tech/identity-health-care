@@ -8,18 +8,14 @@ export default function BlogPreview() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setLoading(true);
-
-    get('/blogs.php')
-      .then((res) => {
-        const data = Array.isArray(res.data) ? res.data : [];
-        setBlogs(data);
-      })
-      .catch(() => setBlogs([]))
-      .finally(() => setLoading(false));
-
-  }, []);
+useEffect(() => {
+  get('/blogs.php')
+    .then((res) => {
+      const data = res?.data ?? res;   // 🔥 FIX
+      setBlogs(Array.isArray(data) ? data : []);
+    })
+    .catch(() => setBlogs([]));
+}, []);
 
   const shareWhatsApp = (blog) => {
 
