@@ -34,7 +34,7 @@ function HeroManager() {
 
       const response = await get('/hero.php');
 
-      setSlides(response.data);
+      setSlides(response);
 
     } catch(error) {
 
@@ -244,64 +244,72 @@ function HeroManager() {
 
       {/* LIST */}
 
-      <div className="manager-list">
+    {/* LIST */}
 
-        {slides.map((slide) => (
+<div className="manager-list">
 
-          <div
-            key={slide.id}
-            className="manager-item"
+  {Array.isArray(slides) && slides.length > 0 ? (
+    
+    slides.map((slide) => (
+
+      <div
+        key={slide.id}
+        className="manager-item"
+      >
+
+        <img
+          src={slide.background_image}
+          alt={slide.title || "slide image"}
+          style={{
+            width: '100%',
+            height: '220px',
+            objectFit: 'cover',
+            borderRadius: '20px',
+            marginBottom: '15px'
+          }}
+        />
+
+        <h3>
+          {slide.title}
+        </h3>
+
+        <p>
+          {slide.subtitle}
+        </p>
+
+        <div
+          style={{
+            display: 'flex',
+            gap: '10px',
+            marginTop: '20px'
+          }}
+        >
+
+          <button
+            className="button-secondary"
+            onClick={() => handleEdit(slide)}
           >
+            Edit
+          </button>
 
-            <img
-              src={slide.background_image}
-              alt=""
-              style={{
-                width: '100%',
-                height: '220px',
-                objectFit: 'cover',
-                borderRadius: '20px',
-                marginBottom: '15px'
-              }}
-            />
+          <button
+            className="cta-button"
+            onClick={() => handleDelete(slide.id)}
+          >
+            Delete
+          </button>
 
-            <h3>
-              {slide.title}
-            </h3>
-
-            <p>
-              {slide.subtitle}
-            </p>
-
-            <div
-              style={{
-                display: 'flex',
-                gap: '10px',
-                marginTop: '20px'
-              }}
-            >
-
-              <button
-                className="button-secondary"
-                onClick={() => handleEdit(slide)}
-              >
-                Edit
-              </button>
-
-              <button
-                className="cta-button"
-                onClick={() => handleDelete(slide.id)}
-              >
-                Delete
-              </button>
-
-            </div>
-
-          </div>
-
-        ))}
+        </div>
 
       </div>
+
+    ))
+
+  ) : (
+    <p>No slides found</p>
+  )}
+
+</div>
 
     </div>
 

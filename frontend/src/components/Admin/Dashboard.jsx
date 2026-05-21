@@ -30,17 +30,18 @@ export default function AdminDashboard() {
   const refreshCounts = async () => {
     try {
       const [blogs, gallery, testimonials, appointments] = await Promise.all([
-        get('/blogs.php'),
-        get('/gallery.php'),
-        get('/testimonials.php'),
-        get('/appointments.php', true),
-      ]);
-      setOverview({
-        blogs: blogs.data.length,
-        gallery: gallery.data.length,
-        testimonials: testimonials.data.length,
-        appointments: appointments.data.length,
-      });
+  get('/blogs.php'),
+  get('/gallery.php'),
+  get('/testimonials.php'),
+  get('/appointments.php', true),
+]);
+
+setOverview({
+  blogs: Array.isArray(blogs) ? blogs.length : 0,
+  gallery: Array.isArray(gallery) ? gallery.length : 0,
+  testimonials: Array.isArray(testimonials) ? testimonials.length : 0,
+  appointments: Array.isArray(appointments) ? appointments.length : 0,
+});
     } catch (error) {
       console.error(error);
     }
@@ -235,7 +236,7 @@ function BlogManager({ token, onUpdate }) {
         {status && <div className={status.type === 'success' ? 'alert-success' : 'alert-error'}>{status.message}</div>}
       </form>
       <div className="manager-list">
-        {blogs.map((blog) => (
+        {Array.isArray(blogs) && blogs.map((blog) => (
           <div key={blog.id} className="manager-item">
             <h4>{blog.title}</h4>
             <p>{blog.description}</p>
@@ -265,7 +266,7 @@ function GalleryManager({ token, onUpdate }) {
 
   const loadGallery = () => {
     get('/gallery.php')
-      .then((res) => setItems(res.data))
+      .then((res) => setItems(res))
       .catch(() => setItems([]));
   };
 
@@ -347,7 +348,7 @@ function TestimonialManager({ token, onUpdate }) {
 
   const loadTestimonials = () => {
     get('/testimonials.php')
-      .then((res) => setTestimonials(res.data))
+      .then((res) => setTestimonials(res))
       .catch(() => setTestimonials([]));
   };
 
@@ -428,7 +429,7 @@ function AppointmentList({ token }) {
 
   useEffect(() => {
     get('/appointments.php', true)
-      .then((res) => setAppointments(res.data))
+      .then((res) => setAppointments(res))
       .catch(() => setAppointments([]));
   }, []);
 

@@ -16,12 +16,15 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
+  const handleToggle = () => setOpen(prev => !prev);
+  const closeMenu = () => setOpen(false);
+
   return (
     <header className="navbar-wrapper">
       <nav className="navbar">
 
         {/* LOGO */}
-        <Link to="/" className="logo">
+        <Link to="/" className="logo" onClick={closeMenu}>
           <img
             src={logo}
             alt="Identity Health Care"
@@ -32,22 +35,29 @@ export default function Navbar() {
         {/* MOBILE TOGGLE */}
         <button
           className="mobile-toggle"
-          onClick={() => setOpen(!open)}
+          onClick={handleToggle}
+          aria-label="Toggle menu"
         >
           {open ? "✕" : "☰"}
         </button>
 
         {/* MENU */}
         <div className={`menu ${open ? "mobile-open" : ""}`}>
-          {links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setOpen(false)}
-            >
-              {link.label}
-            </a>
-          ))}
+
+          {Array.isArray(links) && links.length > 0 ? (
+            links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={closeMenu}
+              >
+                {link.label}
+              </a>
+            ))
+          ) : (
+            <p>No menu items</p>
+          )}
+
         </div>
 
       </nav>

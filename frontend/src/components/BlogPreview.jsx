@@ -7,13 +7,11 @@ export default function BlogPreview() {
 
   const [blogs, setBlogs] = useState([]);
 
-  useEffect(() => {
-
-    get('/blogs')
-      .then((res) => setBlogs(res.data))
-      .catch(() => setBlogs([]));
-
-  }, []);
+useEffect(() => {
+  get('/blogs')
+    .then((res) => setBlogs(res))
+    .catch(() => setBlogs([]));
+}, []);
 
   // WHATSAPP SHARE
 
@@ -74,7 +72,7 @@ ${websiteUrl}
 
         <div className="grid blog-grid">
 
-          {blogs.map((blog) => (
+          {Array.isArray(blogs) && blogs.map((blog) => (
 
             <article
               key={blog.id}

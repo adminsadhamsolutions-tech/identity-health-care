@@ -34,23 +34,46 @@ const serviceItems = [
 export default function Services() {
   return (
     <section className="section section-soft" id="services">
+
       <div className="container text-center">
-        <p style={{ color: '#6a1b9a', fontWeight: 700, marginBottom: '14px' }}>Our signature services</p>
-        <h2 className="section-title">Holistic care for every stage of your journey</h2>
+
+        <p style={{ color: '#6a1b9a', fontWeight: 700, marginBottom: '14px' }}>
+          Our signature services
+        </p>
+
+        <h2 className="section-title">
+          Holistic care for every stage of your journey
+        </h2>
+
         <p className="section-subtitle">
           A curated suite of women-focused physiotherapy and fitness programs that combine medical expertise
           with warm, supportive coaching.
         </p>
+
         <div className="grid services-grid">
-          {serviceItems.map((service) => (
-            <article key={service.label} className="service-card">
-              <div className="service-icon">{service.icon}</div>
-              <h3>{service.label}</h3>
-              <p>{service.text}</p>
-            </article>
-          ))}
+
+          {Array.isArray(serviceItems) && serviceItems.length > 0 ? (
+            serviceItems.map((service) => (
+              <article key={service.label} className="service-card">
+
+                <div className="service-icon">
+                  {service.icon}
+                </div>
+
+                <h3>{service.label}</h3>
+
+                <p>{service.text}</p>
+
+              </article>
+            ))
+          ) : (
+            <p>No services available</p>
+          )}
+
         </div>
+
       </div>
+
     </section>
   );
 }
