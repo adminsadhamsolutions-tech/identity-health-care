@@ -4,15 +4,14 @@ export default function Testimonials() {
 
   useEffect(() => {
 
-    // Prevent duplicate script loading
-    const existing = document.querySelector(
-      "script[src*='elfsight']"
-    );
-    if (existing) return;
+    const scriptId = "elfsight-platform-script";
+
+    // prevent duplicate script load
+    if (document.getElementById(scriptId)) return;
 
     const script = document.createElement('script');
-
-    script.src = "https://static.elfsight.com/platform/platform.js";
+    script.id = scriptId;
+    script.src = "https://elfsightcdn.com/platform.js";
     script.async = true;
 
     document.body.appendChild(script);
@@ -35,48 +34,21 @@ export default function Testimonials() {
         }}
       >
 
-        {/* TOP TEXT */}
-        <p
-          style={{
-            color: '#6a1b9a',
-            fontWeight: '700',
-            marginBottom: '14px',
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-          }}
-        >
+        {/* HEADER */}
+        <p style={{ color: '#6a1b9a', fontWeight: 700, marginBottom: 14 }}>
           Google Reviews
         </p>
 
-        <h2
-          style={{
-            fontSize: '52px',
-            fontWeight: '800',
-            color: '#111',
-            marginBottom: '20px',
-          }}
-        >
+        <h2 style={{ fontSize: 52, fontWeight: 800 }}>
           What Women Say About Us
         </h2>
 
-        <p
-          style={{
-            color: '#666',
-            maxWidth: '800px',
-            margin: '0 auto 60px',
-            lineHeight: '1.9',
-            fontSize: '18px',
-          }}
-        >
-          Real stories and authentic experiences shared directly
-          from Google reviews.
+        <p style={{ color: '#666', maxWidth: 800, margin: '0 auto 60px' }}>
+          Real experiences from our clients.
         </p>
 
-        {/* ELFSIGHT WIDGET */}
-        <div
-          className="elfsight-app"
-          data-elfsight-app-lazy
-        ></div>
+        {/* ELFSIGHT WIDGET (IMPORTANT PART) */}
+        <div className="elfsight-app-29a7f1e8-6dee-48a8-a79b-d4b015384bce" />
 
       </div>
     </section>
