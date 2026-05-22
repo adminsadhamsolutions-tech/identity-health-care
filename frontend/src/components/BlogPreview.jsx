@@ -7,15 +7,18 @@ export default function BlogPreview() {
 
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-useEffect(() => {
-  get(`/blogs.php?id=${id}`)
-    .then((res) => {
-      const data = res?.data ?? res;
-      const blog = Array.isArray(data) ? data[0] : data;
-      setBlog(blog);
-    })
-    .catch(() => setError('Blog not found.'));
-}, [id]);
+
+  useEffect(() => {
+    setLoading(true);
+
+    get('/blogs.php')
+      .then((res) => {
+        const data = res?.data ?? res;
+        setBlogs(Array.isArray(data) ? data : []);
+      })
+      .catch(() => setBlogs([]))
+      .finally(() => setLoading(false));
+  }, []);
 
   const shareWhatsApp = (blog) => {
 
@@ -56,7 +59,6 @@ ${websiteUrl}
           every phase of your health journey.
         </p>
 
-        {/* LOADING STATE */}
         {loading && <p>Loading blogs...</p>}
 
         <div className="grid blog-grid">
@@ -67,29 +69,15 @@ ${websiteUrl}
             blogs.map((blog) => (
               <article key={blog.id} className="blog-card">
 
-                <img
-                  src={blog.media_url}
-                  alt={blog.title}
-                />
+                <img src={blog.media_url} alt={blog.title} />
 
                 <h3>{blog.title}</h3>
 
                 <p>{blog.description}</p>
 
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: '12px',
-                    justifyContent: 'center',
-                    marginTop: '20px',
-                    flexWrap: 'wrap'
-                  }}
-                >
+                <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '20px', flexWrap: 'wrap' }}>
 
-                  <Link
-                    to={`/blogs/${blog.id}`}
-                    className="button-secondary"
-                  >
+                  <Link to={`/blogs/${blog.id}`} className="button-secondary">
                     Read More
                   </Link>
 
