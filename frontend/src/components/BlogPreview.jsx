@@ -7,15 +7,15 @@ export default function BlogPreview() {
 
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-
 useEffect(() => {
-  get('/blogs.php')
+  get(`/blogs.php?id=${id}`)
     .then((res) => {
-      const data = res?.data ?? res;   // 🔥 FIX
-      setBlogs(Array.isArray(data) ? data : []);
+      const data = res?.data ?? res;
+      const blog = Array.isArray(data) ? data[0] : data;
+      setBlog(blog);
     })
-    .catch(() => setBlogs([]));
-}, []);
+    .catch(() => setError('Blog not found.'));
+}, [id]);
 
   const shareWhatsApp = (blog) => {
 
