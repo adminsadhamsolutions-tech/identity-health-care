@@ -560,6 +560,3 @@ label {
     grid-template-columns: 1fr;
   }
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

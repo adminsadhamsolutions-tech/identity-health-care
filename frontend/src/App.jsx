@@ -1,6 +1,4 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -14,9 +12,6 @@ import Footer from './components/Footer';
 import BlogDetail from './components/BlogDetail';
 import AdminLogin from './components/Admin/Login';
 import AdminDashboard from './components/Admin/Dashboard';
-
-import SplashScreen from './components/SplashScreen';
-
 function HomePage() {
   const navigate = useNavigate();
 
@@ -38,22 +33,15 @@ function HomePage() {
   );
 }
 
-export default function App() {
-
-  const [loading, setLoading] = useState(true);
-
+function App() {
   return (
-    <>
-      {loading ? (
-        <SplashScreen onFinish={() => setLoading(false)} />
-      ) : (
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/blogs/:id" element={<BlogDetail />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/*" element={<AdminDashboard />} />
-        </Routes>
-      )}
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/blogs/:id" element={<BlogDetail />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin/*" element={<AdminDashboard />} />
+    </Routes>
   );
 }
+
+export default App;
