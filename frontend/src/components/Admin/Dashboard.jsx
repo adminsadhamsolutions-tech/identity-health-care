@@ -352,12 +352,26 @@ function TestimonialManager({ token, onUpdate }) {
     loadTestimonials();
   }, []);
 
-  const loadTestimonials = () => {
-    get('/testimonials.php')
-      .then((res) => setTestimonials(res))
-      .catch(() => setTestimonials([]));
-  };
+const loadTestimonials = () => {
+  get('/testimonials.php')
+    .then((res) => {
+      console.log("testimonials API:", res);
 
+      let data = res;
+
+      // handle axios-style response
+      if (res && res.data) {
+        data = res.data;
+      }
+
+      // ALWAYS ensure array
+      setTestimonials(Array.isArray(data) ? data : []);
+    })
+    .catch((err) => {
+      console.error("testimonials error:", err);
+      setTestimonials([]);
+    });
+};
   const handleChange = (event) => {
     const { name, value } = event.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -415,7 +429,7 @@ function TestimonialManager({ token, onUpdate }) {
         {status && <div className={status.type === 'success' ? 'alert-success' : 'alert-error'}>{status.message}</div>}
       </form>
       <div className="manager-list">
-        {testimonials.map((testimonial) => (
+        {Array.isArray(testimonials) && testimonials.map((testimonial) => (
           <div key={testimonial.id} className="manager-item">
             <h4>{testimonial.name}</h4>
             <p>{testimonial.message}</p>
