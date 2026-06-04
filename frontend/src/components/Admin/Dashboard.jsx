@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { get, post, put, del } from '../../api';
-import HeroManager from './Heromanger';
+import HeroManager from './Heromanger'
 
 const tabs = [
   { key: 'overview', label: 'Overview' },
@@ -150,7 +150,10 @@ function BlogManager({ token, onUpdate }) {
 
   const loadBlogs = () => {
     get('/blogs.php')
-      .then((res) => setBlogs(res.data))
+      .then((res) => {
+  const data = res?.data || res;
+  setBlogs(Array.isArray(data) ? data : []);
+})
       .catch(() => setBlogs([]));
   };
 
@@ -265,14 +268,13 @@ function GalleryManager({ token, onUpdate }) {
   }, []);
 
   const loadGallery = () => {
-get('/gallery.php', true)
-  .then((res) => {
-    const data = res?.data || res;
-    setGallery(Array.isArray(data) ? data : []);
-  })
-  .catch(() => setGallery([]));
-    
-  };
+  get('/gallery.php')
+    .then((res) => {
+      const data = res?.data || res;
+      setItems(Array.isArray(data) ? data : []);
+    })
+    .catch(() => setItems([]));
+};
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -327,7 +329,7 @@ get('/gallery.php', true)
         {status && <div className={status.type === 'success' ? 'alert-success' : 'alert-error'}>{status.message}</div>}
       </form>
       <div className="manager-list">
-        {items.map((item) => (
+        {Array.isArray(items) && items.map((item) => (
           <div key={item.id} className="manager-item">
             <h4>{item.type === 'video' ? 'Video' : 'Image'}</h4>
             <p>{item.media_url}</p>
