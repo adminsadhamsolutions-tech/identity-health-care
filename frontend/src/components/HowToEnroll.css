@@ -1,0 +1,116 @@
+.enroll-section {
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #ffffff, #fdf4ff, #f0f9ff);
+}
+
+.enroll-container {
+  max-width: 1300px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* LEFT CONTENT */
+
+.enroll-badge {
+  color: #7e22ce;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.enroll-title {
+  font-size: 52px;
+  color: #111827;
+  margin-bottom: 20px;
+}
+
+.enroll-subtitle {
+  font-size: 18px;
+  color: #6b7280;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.enroll-list {
+  list-style: none;
+  padding: 0;
+}
+
+.enroll-list li {
+  background: white;
+  padding: 18px 20px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  line-height: 1.6;
+  transition: 0.3s;
+  position: relative;
+  padding-left: 45px;
+}
+
+/* Bullet icon */
+.enroll-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 15px;
+  top: 18px;
+  color: #be185d;
+  font-weight: bold;
+}
+
+.enroll-list li:hover {
+  transform: translateY(-5px);
+}
+
+/* RIGHT IMAGE */
+
+.enroll-image-area {
+  display: flex;
+  justify-content: center;
+}
+
+.enroll-image {
+  width: 100%;
+  max-width: 420px;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  transition: 0.4s;
+}
+
+.enroll-image:hover {
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 992px) {
+  .enroll-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .enroll-title {
+    font-size: 38px;
+  }
+
+  .enroll-image {
+    height: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  .enroll-title {
+    font-size: 30px;
+  }
+
+  .enroll-list li {
+    font-size: 14px;
+  }
+}

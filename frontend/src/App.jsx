@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import BlogDetail from './components/BlogDetail';
 import AdminLogin from './components/Admin/Login';
 import AdminDashboard from './components/Admin/Dashboard';
+import HowToEnroll from './components/HowToEnroll';
 function HomePage() {
   const navigate = useNavigate();
 
@@ -24,6 +25,7 @@ function HomePage() {
         <About />
         <Testimonials />
         <Gallery />
+        <HowToEnroll />
         <BlogPreview />
         <Appointment />
         <Contact />
