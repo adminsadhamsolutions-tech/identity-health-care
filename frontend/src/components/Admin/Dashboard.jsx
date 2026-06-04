@@ -30,7 +30,7 @@ export default function AdminDashboard() {
   const refreshCounts = async () => {
     try {
       const [blogs, gallery, testimonials, appointments] = await Promise.all([
-  get('/api/blogs.php'),
+  get('/blogs.php'),
   get('/gallery.php'),
   get('/testimonials.php'),
   get('/appointments.php', true),
@@ -149,7 +149,7 @@ function BlogManager({ token, onUpdate }) {
   }, []);
 
   const loadBlogs = () => {
-    get('/api/blogs.php')
+    get('/blogs.php')
       .then((res) => setBlogs(res.data))
       .catch(() => setBlogs([]));
   };
