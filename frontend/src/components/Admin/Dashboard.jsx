@@ -265,9 +265,13 @@ function GalleryManager({ token, onUpdate }) {
   }, []);
 
   const loadGallery = () => {
-    get('/gallery.php')
-      .then((res) => setItems(res))
-      .catch(() => setItems([]));
+get('/gallery.php', true)
+  .then((res) => {
+    const data = res?.data || res;
+    setGallery(Array.isArray(data) ? data : []);
+  })
+  .catch(() => setGallery([]));
+    
   };
 
   const handleChange = (event) => {
