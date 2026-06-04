@@ -428,9 +428,24 @@ function AppointmentList({ token }) {
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    get('/appointments.php', true)
-      .then((res) => setAppointments(res))
-      .catch(() => setAppointments([]));
+ get('/appointments.php', true)
+  .then((res) => {
+    console.log("appointments API:", res);
+
+    // handle different response formats safely
+    let data = res;
+
+    if (res && res.data) {
+      data = res.data;
+    }
+
+    // ensure it's always an array
+    setAppointments(Array.isArray(data) ? data : []);
+  })
+  .catch((err) => {
+    console.error("appointments error:", err);
+    setAppointments([]);
+  });
   }, []);
 
   return (
@@ -442,7 +457,7 @@ function AppointmentList({ token }) {
         </div>
       </div>
       <div className="manager-list">
-        {appointments.map((appointment) => (
+        {Array.isArray(appointments) && appointments.map((appointment) => (
           <div key={appointment.id} className="manager-item">
             <h4>{appointment.name}</h4>
             <p>Phone: {appointment.phone}</p>
