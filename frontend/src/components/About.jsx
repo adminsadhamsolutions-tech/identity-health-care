@@ -42,7 +42,7 @@ export default function About() {
         <div className="about-image-area">
 
           <img
-            src={about.owner_photo}
+            src="/images/founder.png"
             alt={about.owner_name}
             className="about-image"
           />
@@ -69,6 +69,7 @@ export default function About() {
             {about.subtitle}
           </p>
 
+          {/* CARDS */}
           <div className="about-card">
             <h3>{about.card1_title}</h3>
             <p>{about.card1_desc}</p>
@@ -82,6 +83,23 @@ export default function About() {
           <div className="about-card">
             <h3>{about.card3_title}</h3>
             <p>{about.card3_desc}</p>
+          </div>
+
+          {/* ✅ FOUNDER SECTION */}
+          <div className="founder-section">
+
+            <h2 className="founder-title">
+              {about.founder_title}
+            </h2>
+
+            <p className="founder-experience">
+              {about.founder_experience}
+            </p>
+
+            <p className="founder-content">
+              {about.founder_content}
+            </p>
+
           </div>
 
         </div>

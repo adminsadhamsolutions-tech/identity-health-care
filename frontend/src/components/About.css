@@ -1,17 +1,11 @@
+/* SECTION */
 .about-section {
-
   padding: 100px 20px;
-  background: linear-gradient(
-    135deg,
-    #fff0f6,
-    #ffffff,
-    #f3e8ff
-  );
-
+  background: linear-gradient(135deg, #fff0f6, #ffffff, #f3e8ff);
 }
 
+/* CONTAINER */
 .about-container {
-
   max-width: 1300px;
   margin: auto;
 
@@ -19,176 +13,187 @@
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: center;
-
 }
 
+/* IMAGE */
 .about-image-area {
-
   position: relative;
-
 }
 
 .about-image {
-
   width: 100%;
-  height: 650px;
+  height: 600px;
   object-fit: cover;
 
   border-radius: 40px;
-
   box-shadow: 0 20px 50px rgba(0,0,0,0.15);
 
+  transition: 0.4s;
 }
 
+.about-image:hover {
+  transform: scale(1.03);
+}
+
+/* EXPERIENCE BADGE */
 .experience-badge {
-
   position: absolute;
+  bottom: -25px;
+  right: -25px;
 
-  bottom: -30px;
-  right: -30px;
-
-  width: 130px;
-  height: 130px;
+  width: 120px;
+  height: 120px;
 
   border-radius: 50%;
-
   background: #7e22ce;
-
   color: white;
 
   display: flex;
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
 
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-
 }
 
 .experience-badge h2 {
-
-  font-size: 42px;
+  font-size: 36px;
   margin: 0;
   font-weight: 900;
-
 }
 
 .experience-badge p {
-
   margin: 0;
-  font-size: 14px;
-
+  font-size: 13px;
 }
 
+/* TEXT CONTENT */
 .about-badge {
-
   color: #7e22ce;
-
   font-weight: 700;
-
-  letter-spacing: 4px;
-
+  letter-spacing: 3px;
   text-transform: uppercase;
-
-  margin-bottom: 20px;
-
+  margin-bottom: 15px;
 }
 
 .about-title {
-
-  font-size: 60px;
-
+  font-size: 52px;
   line-height: 1.2;
-
   color: #111827;
-
-  margin-bottom: 30px;
-
+  margin-bottom: 25px;
 }
 
 .about-subtitle {
-
-  font-size: 18px;
-
-  line-height: 2;
-
+  font-size: 17px;
+  line-height: 1.9;
   color: #6b7280;
-
-  margin-bottom: 40px;
-
+  margin-bottom: 35px;
 }
 
+/* CARDS */
 .about-card {
-
   background: white;
+  padding: 25px;
+  border-radius: 25px;
+  margin-bottom: 18px;
 
-  padding: 30px;
-
-  border-radius: 30px;
-
-  margin-bottom: 20px;
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
   transition: 0.3s;
-
 }
 
 .about-card:hover {
-
-  transform: translateY(-8px);
-
+  transform: translateY(-6px);
 }
 
 .about-card h3 {
-
-  font-size: 26px;
-
+  font-size: 22px;
   color: #7e22ce;
-
-  margin-bottom: 15px;
-
+  margin-bottom: 10px;
 }
 
 .about-card p {
-
   color: #6b7280;
-
-  line-height: 1.8;
-
+  line-height: 1.7;
 }
 
-.about-loading {
+/* FOUNDER SECTION */
+.founder-section {
+  margin-top: 40px;
+  padding: 30px;
 
-  padding: 100px;
+  background: linear-gradient(135deg, #ffffff, #fdf4ff);
+  border-radius: 25px;
 
-  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
 
-  font-size: 32px;
+.founder-title {
+  font-size: 30px;
+  color: #be185d;
+  margin-bottom: 10px;
+}
 
+.founder-experience {
   font-weight: bold;
-
+  color: #7e22ce;
+  margin-bottom: 15px;
 }
 
-@media(max-width: 992px) {
+.founder-content {
+  color: #6b7280;
+  line-height: 1.8;
+  white-space: pre-line;
+}
 
+/* LOADING */
+.about-loading {
+  padding: 100px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
   .about-container {
-
     grid-template-columns: 1fr;
-
+    gap: 50px;
   }
 
   .about-title {
-
-    font-size: 42px;
-
+    font-size: 40px;
   }
 
   .about-image {
-
-    height: 500px;
-
+    height: 450px;
   }
 
+  .experience-badge {
+    width: 100px;
+    height: 100px;
+    bottom: -20px;
+    right: -10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-section {
+    padding: 70px 15px;
+  }
+
+  .about-title {
+    font-size: 30px;
+  }
+
+  .about-subtitle {
+    font-size: 15px;
+  }
+
+  .about-card {
+    padding: 20px;
+  }
+
+  .founder-section {
+    padding: 20px;
+  }
 }
