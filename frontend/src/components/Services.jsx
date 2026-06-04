@@ -1,33 +1,53 @@
 const serviceItems = [
   {
-    icon: '🧘',
-    label: 'Physiotherapy',
-    text: 'Targeted care for recovery, pain relief, and mobility restoration with clinical precision.',
+    icon: '💪',
+    label: 'Everyday Health & Fitness Program',
+    text: 'A guided fitness program focused on improving strength, flexibility, stamina, posture, and overall physical wellbeing through safe and structured exercise sessions.',
   },
   {
     icon: '⚖️',
-    label: 'Weight Loss Program',
-    text: 'Guided weight management plans tailored to women’s energy, metabolism, and lifestyle.',
+    label: 'Weight Management Program',
+    text: 'A structured wellness program combining exercise, dietary modifications, and lifestyle guidance to support healthy and sustainable weight management.',
   },
   {
-    icon: '🤰',
-    label: 'Antenatal Fitness',
-    text: 'Safe prenatal movement and support to keep mothers strong during pregnancy.',
+    icon: '🧠',
+    label: 'Diastasis Recti Rehabilitation',
+    text: 'A physiotherapy-based core rehabilitation program designed to improve abdominal separation, posture, core stability, and functional strength after pregnancy.',
   },
   {
     icon: '👶',
-    label: 'Postnatal Fitness',
-    text: 'Recovery-focused training for postpartum wellness, strength, and balance.',
+    label: 'Postnatal Recovery Program',
+    text: 'A guided recovery program focused on restoring strength, mobility, posture, pelvic stability, and overall wellbeing after childbirth.',
+  },
+  {
+    icon: '🌸',
+    label: 'Women’s Wellness Program (40+)',
+    text: 'A low-impact wellness and fitness program designed to support healthy ageing, mobility, strength, hormonal wellbeing, and long-term wellness for women above 40.',
+  },
+  {
+    icon: '🧘',
+    label: 'Stretch to De-Stress Program',
+    text: 'A gentle stretching and mobility program focused on improving flexibility, relieving muscular tension, reducing stiffness, and promoting relaxation.',
   },
   {
     icon: '🩺',
-    label: 'Therapeutic Fitness',
-    text: 'Medical exercise solutions that pair strength training with body restoration.',
+    label: 'Pelvic Floor Rehabilitation',
+    text: 'A specialized physiotherapy program focused on pelvic floor strength, bladder control, pelvic health, and rehabilitation for women with pelvic floor concerns.',
   },
   {
     icon: '🔥',
-    label: 'Metabolic Health',
-    text: 'Science-backed coaching for better energy, hormone balance, and lasting results.',
+    label: 'Metabolic Health Program',
+    text: 'A personalized lifestyle wellness program combining exercise, diet, and healthy habit modification to support metabolic health and preventive wellness.',
+  },
+  {
+    icon: '🦴',
+    label: 'Pain Relief & Posture Correction',
+    text: 'A physiotherapy-based rehabilitation program focused on reducing pain, improving posture, correcting movement imbalances, and restoring mobility.',
+  },
+  {
+    icon: '👵',
+    label: 'Senior Citizen Wellness Program',
+    text: 'A safe and low-impact fitness program designed to improve mobility, balance, flexibility, strength, and functional wellbeing for older adults and senior citizens.',
   },
 ];
 
