@@ -11,7 +11,7 @@ export default function Contact() {
         <div className="grid info-grid">
           <div className="contact-card service-card">
             <h3>Phone</h3>
-            <p>8903660581</p>
+            <p>9842320688</p>
             <p>9842320688</p>
           </div>
           <div className="contact-card service-card">
