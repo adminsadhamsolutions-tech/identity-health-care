@@ -171,10 +171,13 @@ function BlogManager({ token, onUpdate }) {
     event.preventDefault();
     setStatus(null);
 
-    if (!form.title || !form.description || !form.media_url || !form.content) {
-      setStatus({ type: 'error', message: 'Fill in all blog details.' });
-      return;
-    }
+if (!form.title || !form.description || !form.content) {
+  setStatus({
+    type: 'error',
+    message: 'Title, Description and Content are required.'
+  });
+  return;
+}
 
     try {
       if (editId) {
@@ -222,7 +225,7 @@ function BlogManager({ token, onUpdate }) {
         <input name="title" value={form.title} onChange={handleChange} />
         <label>Description</label>
         <textarea name="description" value={form.description} onChange={handleChange} />
-        <label>Image / Video URL</label>
+        <label>Image / Video URL (Optional)</label>
         <input name="media_url" value={form.media_url} onChange={handleChange} placeholder="https://..." />
         <label>Content</label>
         <textarea name="content" value={form.content} onChange={handleChange} rows="6" />
